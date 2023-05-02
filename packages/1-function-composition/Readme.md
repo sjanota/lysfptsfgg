@@ -160,6 +160,53 @@ const getNamesOfAllAdultUsers: (db: DB) => string[] = flow(
 )
 ```
 
+## Building from ground up
+
+`flow` and `pipe` may be very useful when building. But putting a certain shape on the function they encourage us to think in algorythms, where data flows from top to bottom without branching. Let's see another example. 
+
+We want to get an average age of our nonadult users. Let's start with a function declaration. We don't know our inputs yet, but we know what we want to get: a single number. We can also scaffold our function with flow.
+
+```typescript
+const getAverageNonadultAge: () => number = flow(...)
+```
+
+First, we have to get all users. We already have a function for that and we know it requres DB instance to work. Let's add it to our implementation.
+
+```typescript
+const getAverageNonadultAge: (db: DB) => number = flow(
+    findAllUsers, 
+    ...
+)
+```
+
+Let's add filtering by age. We can declare a `filterNonadultUsers` and use it without diving into implementation. That will help us on same level of abstraction and avoid extending responsibility of our function at hand.
+
+```typescript
+declare const filterNonadultUsers = (users: User[]) => User[]
+
+const getAverageNonadultAge: (db: DB) => number = flow(
+    findAllUsers,
+    filterNonadultUsers
+    ...
+)
+```
+
+Let's do the same thing for two next steps: `getUsersAges` and `calculateAverage`:
+
+```typescript
+declare const filterNonadultUsers = (users: User[]) => User[]
+declare const getUsersAges = (users: User[]) => number[]
+declare const calculateAverage = (xs: number[]) => number
+
+const getAverageNonadultAge: (db: DB) => number = flow(
+    findAllUsers,
+    filterNonadultUsers,
+    getUsersAges,
+    calculateAverage
+)
+```
+
+Now that the overall algorithm is fleshed out and types correctly we may dive deeper into implementation of lower-level functions.
 
 
 ## Questions
