@@ -179,7 +179,7 @@ const getAverageNonadultAge: (db: DB) => number = flow(
 )
 ```
 
-Let's add filtering by age. We can declare a `filterNonadultUsers` and use it without diving into implementation. That will help us on same level of abstraction and avoid extending responsibility of our function at hand.
+Let's add filtering by age. We can declare a `filterNonadultUsers` and use it without diving into implementation. That will help us stay on the same level of abstraction without diving into too much details.
 
 ```typescript
 declare const filterNonadultUsers = (users: User[]) => User[]
