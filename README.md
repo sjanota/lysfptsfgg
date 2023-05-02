@@ -14,4 +14,4 @@ The excercises contained in this repository are meant for people fluent in Types
 This repository uses `nx` for orchestration. The lessons are in directory `packages
 
 ## Content
-- [Lesson A - Function composition](./lessons/a-function-composition/)
+- [Lesson A - Function composition](./packages/1-function-composition/Readme.md)

@@ -16,7 +16,7 @@ const getNamesOfAllAdultUsers = (db: DB): string[] => {
 } 
 ```
 
-A nice, 3 line function, what's wrong with it? The function combines a lot of responsibilities:
+A nice, 3 line function, what's wrong with it? The problem is the function combines a lot of responsibilities:
 - it knows how to query users from DB
 - it knows what it means to be an adult
 - it knows how to get user name
@@ -39,7 +39,7 @@ const getNamesOfAllAdultUsers = (db: DB): string[] => {
 } 
 ```
 
-Now, the `getNamesOfAllAdultUsers` knows about one thing: how to get userNames, having a DB client, but doesn't care about all the details and business rules. 
+Now, the `getNamesOfAllAdultUsers` knows about one thing: how to get user names, having a DB client, but doesn't care about all the details and business rules. 
 
 ## Pipe
 
@@ -53,16 +53,16 @@ const getNamesOfAllAdultUsers = (db: DB): string[] => {
 }
 ```
 
-Have you noticed that each variable (`db`, `allUSers`, `adultUsers`) is used only once, always in the next line? Looks like the variables are only cluttering the view. Me may be tempted to inline this and write something like the following:
+Have you noticed that each variable (`db`, `allUSers`, `adultUsers`) is used only once, always in the next line? Looks like the variables are only cluttering the view. We may be tempted to inline this and write something like the following:
 
 ```typescript
 const getNamesOfAllAdultUsers = (db: DB): string[] => 
     findAllUsers(db).filter(isUserAdult).map(getUserName)
 ```
 
-JavaScript standard library makes extensive use of chaining and fluent APIs. It's really great at first glance, but has one big limitation: it's based on methods. This means that the implementation of `filter` function comes from `findAllUsers` and our function that uses it has no control over it. There's a better way to do it. Let's meet `pipe`.
+JavaScript standard library makes extensive use of chaining and fluent APIs. It's really great at first glance, but has one big limitation: it's based on methods. This means that the implementation of `filter` function comes from `findAllUsers` and our code that uses it has no control over it. What if `findAllUsers` API changes and it returns a Promise or something entirely different? There's a better way to do it. Let's meet `pipe`.
 
-`pipe` is a utility function that helps chaining functions in more functional way. It takes result of one function and passes it as an argument to the next one. The concept is very popular in many programming languages (ex. `|` in bash, `|>` in Elixir). The signature looks more less like this:
+`pipe` is a utility function that helps chaining functions in a more functional way. It takes result of one function and passes it as an argument to the next one. The concept is very popular in many programming languages (ex. `|` in bash, `|>` in Elixir). The signature looks more less like this:
 
 ```typescript
 declare const pipe: (init: A, fab: (a: A) => B, fbc: (b: B) => C, fcd: (c: C) => D) => D
@@ -116,7 +116,7 @@ const getNamesOfAllAdultUsers = (db: DB): string[] => pipe(
 
 Have you noticed that the `db` argument is used only once, as initial argment? In such cases we may simplify the code even further by using `flow`. 
 
-`flow` is a more function counterpart of `pipe`. It does not require an initial argument and returns a function instead. Let's see the signature for 3 functions compared to pipe:
+`flow` is a counterpart of `pipe`. It does not require an initial argument and returns a function instead. Let's see the signature for 3 functions compared to pipe:
 
 
 ```typescript
@@ -154,7 +154,7 @@ Looks a bit better, but more importantly our function no longer needs to know wh
 
 Here are some extra questions to consider. If you're not able to answer them don't worry, they will be explained later in the excercies.
 
-- `getNamesOfAllAdultUsers` has one more responsibility that can be extracted. Can you find it? 
+- `getNamesOfAllAdultUsers` has one more dependency to types that could be extracted. Can you find it? 
 
 ## Excercies
 
