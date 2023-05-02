@@ -148,7 +148,19 @@ const getNamesOfAllAdultUsers = flow(
 )
 ```
 
-Looks a bit better, but more importantly our function no longer needs to know what are the arguments to `findAllUsers`! That means one responsibility less.
+Looks a bit better, but more importantly our function no longer needs to know what are the arguments to `findAllUsers`! That means one responsibility less. 
+
+However, it's not always a good idea to omit the types. Sometimes you want the function to know the types of its internals. One such example is when the function is exported or when you have a particularily complex piece of code and want to make sure it's typed correctly. You can easily add types to the const, like this:
+
+```typescript
+const getNamesOfAllAdultUsers: (db: DB) => string[] = flow(
+    findAllUsers,
+    users => users.filter(isUserAdult),
+    users => users.map(getUserName)
+)
+```
+
+
 
 ## Questions
 
