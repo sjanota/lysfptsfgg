@@ -162,7 +162,7 @@ const getNamesOfAllAdultUsers: (db: DB) => string[] = flow(
 
 ## Building from ground up
 
-`flow` and `pipe` may be very useful when building. But putting a certain shape on the function they encourage us to think in algorythms, where data flows from top to bottom without branching. Let's see another example. 
+`flow` and `pipe` may be very useful when building new complex functions from scratch. By putting a certain shape on the function they encourage us to think in algorythms, where data flows from top to bottom without branching. Let's see an example of that. 
 
 We want to get an average age of our nonadult users. Let's start with a function declaration. We don't know our inputs yet, but we know what we want to get: a single number. We can also scaffold our function with flow.
 
