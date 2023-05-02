@@ -1,12 +1,12 @@
 # 1 - Function composition
 
 ## Intro 
-In this lesson you'll learn some techniques to combine small functions together to create more comples ones. This should help you decompose your program into smaller building blocks with clear responsibility. Also, after this lesson you will know how and when to use two of the `fp-ts` function compinators: `flow` and `pipe`.
+In this lesson you'll learn some techniques to combine small functions together to create more complex ones. This should help you decompose your program into smaller building blocks with clear responsibility. Also, after this lesson you will know how and when to use two of the `fp-ts` function combinators: `flow` and `pipe`.
 
 ## Decomposition
-When writing software we often think about the problem at hand as a one big problem to solve. Functions we write this way are complex, i.e. they do a lot of different things often not related to each other. While it's certeinly easier to write software this way it makes it harder to debug and analyse later on.
+When writing software we often think about the problem at hand as a one big chunk. Functions we write this way are complex, i.e. they do a lot of different things often not related to each other. While it's certeinly easier to write software this way it makes it harder to debug and analyse later on.
 
-Here's an example of overly complex function:
+Here's an example of an overly complex function:
 
 ```typescript
 const getNamesOfAllAdultUsers = (db: DB): string[] => {
