@@ -4,11 +4,15 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
-  "dependencies": {},
   "devDependencies": {
+    "@nx/js": "^16.0.1",
+    "jest": "^29.5.0",
     "nx": "16.0.1"
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "fp-ts": "^2.14.0"
+  }
 }
